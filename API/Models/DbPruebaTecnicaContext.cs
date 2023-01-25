@@ -19,14 +19,7 @@ public partial class DbPruebaTecnicaContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-            //        => optionsBuilder.UseMySQL("server=localhost; database=db_prueba_tecnica; user=root; password=root;");
-        }
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,15 +29,26 @@ public partial class DbPruebaTecnicaContext : DbContext
 
             entity.ToTable("actividades");
 
+            entity.HasIndex(e => e.IdActividad, "id_actividad_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.IdUsuario, "id_usuario_UNIQUE").IsUnique();
+
+            entity.HasIndex(e => e.IdUsuario, "id_usuario_idx");
+
             entity.Property(e => e.IdActividad).HasColumnName("id_actividad");
-            entity.Property(e => e.Actividad1)
+            entity.Property(e => e.descripcion)
                 .HasMaxLength(100)
-                .HasColumnName("actividad");
+                .HasColumnName("actividad").IsRequired();
             entity.Property(e => e.CreateDate)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp")
                 .HasColumnName("create_date");
-            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario").IsRequired();
+
+            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.actividades)
+                .HasForeignKey(d => d.IdUsuario)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("id_usuario");
         });
 
         modelBuilder.Entity<Usuario>(entity =>
@@ -58,20 +62,20 @@ public partial class DbPruebaTecnicaContext : DbContext
             entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
             entity.Property(e => e.Apellido)
                 .HasMaxLength(45)
-                .HasColumnName("apellido");
-            entity.Property(e => e.Contacto).HasColumnName("contacto");
+                .HasColumnName("apellido").IsRequired();
+            entity.Property(e => e.Contacto).HasColumnName("contacto").IsRequired();
             entity.Property(e => e.CorreoElectronico)
                 .HasMaxLength(45)
-                .HasColumnName("correo_electronico");
+                .HasColumnName("correo_electronico").IsRequired();
             entity.Property(e => e.FechaNacimiento)
                 .HasColumnType("datetime")
-                .HasColumnName("fecha_nacimiento");
+                .HasColumnName("fecha_nacimiento").IsRequired();
             entity.Property(e => e.Nombre)
                 .HasMaxLength(45)
-                .HasColumnName("nombre");
+                .HasColumnName("nombre").IsRequired();
             entity.Property(e => e.Pais)
                 .HasMaxLength(45)
-                .HasColumnName("pais");
+                .HasColumnName("pais").IsRequired();
             entity.Property(e => e.Telefono)
                 .HasMaxLength(15)
                 .HasColumnName("telefono");

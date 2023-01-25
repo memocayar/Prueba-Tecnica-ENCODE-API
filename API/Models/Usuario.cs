@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models;
 
@@ -20,4 +21,7 @@ public partial class Usuario
     public string Pais { get; set; } = null!;
 
     public sbyte Contacto { get; set; }
+
+    [JsonIgnore]
+    public virtual ICollection<Actividad> actividades { get; set; }
 }

@@ -11,5 +11,7 @@ public partial class Actividad
 
     public long IdUsuario { get; set; }
 
-    public string Actividad1 { get; set; } = null!;
+    public string descripcion { get; set; } = null!;
+
+    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
 }
