@@ -1,4 +1,3 @@
-using API.Middlewares;
 using API.Models;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +18,8 @@ builder.Services.AddEntityFrameworkMySQL()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IHelloWorldService, HelloWorldService>();
+builder.Services.AddScoped<IActvidadservice, Actvidadservice>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 var app = builder.Build();
 

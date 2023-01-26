@@ -27,14 +27,13 @@ DROP TABLE IF EXISTS `actividades`;
 CREATE TABLE `actividades` (
   `id_actividad` int NOT NULL AUTO_INCREMENT,
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_usuario` bigint NOT NULL,
+  `id_usuario` bigint DEFAULT NULL,
   `actividad` varchar(100) NOT NULL,
   PRIMARY KEY (`id_actividad`),
-  UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
   UNIQUE KEY `id_actividad_UNIQUE` (`id_actividad`),
   KEY `id_usuario_idx` (`id_usuario`),
-  CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,6 +54,7 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
   `id_usuario` bigint NOT NULL AUTO_INCREMENT,
+  `alta` tinyint DEFAULT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
   `correo_electronico` varchar(45) NOT NULL,
@@ -63,8 +63,8 @@ CREATE TABLE `usuarios` (
   `pais` varchar(45) NOT NULL,
   `contacto` tinyint NOT NULL,
   PRIMARY KEY (`id_usuario`),
-  UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+  UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`) /*!80000 INVISIBLE */
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -89,4 +89,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-25 12:55:33
+-- Dump completed on 2023-01-26 18:48:35

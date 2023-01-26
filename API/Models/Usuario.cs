@@ -8,6 +8,8 @@ public partial class Usuario
 {
     public long IdUsuario { get; set; }
 
+    public bool Alta { get; set; } = true;
+
     public string Nombre { get; set; } = null!;
 
     public string Apellido { get; set; } = null!;
@@ -20,8 +22,8 @@ public partial class Usuario
 
     public string Pais { get; set; } = null!;
 
-    public sbyte Contacto { get; set; }
+    public bool Contacto { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<Actividad> actividades { get; set; }
+    public virtual ICollection<Actividad>? actividades { get; set; }
 }

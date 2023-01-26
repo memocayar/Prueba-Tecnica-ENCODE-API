@@ -64,6 +64,7 @@ public partial class DbPruebaTecnicaContext : DbContext
                 .HasMaxLength(45)
                 .HasColumnName("apellido").IsRequired();
             entity.Property(e => e.Contacto).HasColumnName("contacto").IsRequired();
+            entity.Property(e => e.Alta).HasColumnName("alta");
             entity.Property(e => e.CorreoElectronico)
                 .HasMaxLength(45)
                 .HasColumnName("correo_electronico").IsRequired();
