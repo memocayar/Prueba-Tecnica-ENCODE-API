@@ -1,3 +1,4 @@
-[submodule "Front-end"]
-	path = Front-end
-	url = ./Front-end
+[submodule "Front-end/EncodeApp"]
+    path = Front-end/EncodeApp
+    url = ./Front-end/EncodeApp
+
